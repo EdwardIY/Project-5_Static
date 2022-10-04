@@ -12,6 +12,7 @@ let pageDivider = 0;
 searchBtn.addEventListener("click", () => {
     numOfimgs = 12
     pageDivider = 0
+    gallery.innerHTML = "";
     const searchedImg = searchInput.value;
     getSearchImages(searchedImg, numOfimgs)
 })
@@ -19,6 +20,7 @@ searchBtn.addEventListener("click", () => {
 document. querySelector("form").addEventListener('submit',(e)=>{
     e.preventDefault()
     if(searchInput.value) {
+        gallery.innerHTML = "";
         const searchedImg = searchInput.value;
         getSearchImages(searchedImg, numOfimgs)
     }
@@ -46,6 +48,7 @@ async function getImages(numOfImgs) {
         method: "GET",
         headers: { accept: "application/json", authorization: pexelsApiKey }
     })
+    gallery.innerHTML = "";
     const data = await response.json()
     if (numOfimgs == 12) createHTML(data.photos);
     else if (numOfImgs > 12) loadMoreImgs(pageDivider, data.photos)
